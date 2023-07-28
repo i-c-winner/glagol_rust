@@ -36,7 +36,9 @@ connect.then((connection: any) => {
     } else if (status === Strophe.Status.REGIFAIL) {
       console.log("The Server does not support In-Band Registration")
     } else if (status === Strophe.Status.CONNECTED) {
+      // @ts-ignore
       window.glagol.connection = connection
+      // @ts-ignore
       window.glagol.user = {
         userId,
         password

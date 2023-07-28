@@ -1,4 +1,4 @@
-function setRegister(strophe) {
+function setRegister(strophe: any) {
 
 
   /*
@@ -25,7 +25,7 @@ function setRegister(strophe) {
     _connection: null,
 
     //The plugin must have the init function.
-    init: function (conn) {
+    init: function (conn: any) {
       this._connection = conn;
 
       // compute free emun index number
@@ -63,7 +63,7 @@ function setRegister(strophe) {
 
       // hooking strophe's _connect_cb
       var connect_cb = conn._connect_cb.bind(conn);
-      conn._connect_cb = function (req, callback, raw) {
+      conn._connect_cb = function (req: any, callback: any, raw: any) {
         if (!self._registering) {
           if (self.processed_features) {
             // exchange Input hooks to not print the stream:features twice
@@ -94,7 +94,7 @@ function setRegister(strophe) {
 
       // hooking strophe`s authenticate
       var auth_old = conn.authenticate.bind(conn);
-      conn.authenticate = function (matched) {
+      conn.authenticate = function (this: any,matched: any) {
         if (typeof matched === "undefined") {
           var conn = this._connection;
 
@@ -148,7 +148,7 @@ function setRegister(strophe) {
      *      number of connections the server will hold at one time.  This
      *      should almost always be set to 1 (the default).
      */
-    connect: function (domain, callback, wait, hold, route) {
+    connect: function (domain: any, callback: any, wait: any, hold: any, route: any) {
       var conn = this._connection;
       this.domain = Strophe.getDomainFromJid(domain);
       this.instructions = "";
@@ -169,7 +169,7 @@ function setRegister(strophe) {
      *  Parameters:
      *    (Strophe.Request) req - The current request.
      */
-    _register_cb: function (req, _callback, raw) {
+    _register_cb: function (req: any, _callback: any, raw: any) {
       var conn = this._connection;
 
       Strophe.info("_register_cb was called");
@@ -231,7 +231,7 @@ function setRegister(strophe) {
      *  Returns:
      *    false to remove SHOULD contain the registration information currentlSHOULD contain the registration information currentlSHOULD contain the registration information currentlthe handler.
      */
-    _get_register_cb: function (stanza) {
+    _get_register_cb: function (stanza: any) {
       var i, query, field, conn = this._connection;
       query = stanza.getElementsByTagName("query");
 
@@ -292,7 +292,7 @@ function setRegister(strophe) {
      *  Returns:
      *    false to remove the handler.
      */
-    _submit_cb: function (stanza) {
+    _submit_cb: function (stanza: any) {
       var i, query, field, error = null, conn = this._connection;
 
       query = stanza.getElementsByTagName("query");
