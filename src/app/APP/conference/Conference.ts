@@ -43,6 +43,8 @@ connect.then((connection: any) => {
         userId,
         password
       }
+      // @ts-ignore
+      window.glagol.connected= true
       console.log('connection')
       // do something after successful authentication
     } else {
