@@ -1,9 +1,7 @@
-import createModel from "../model/creatorModel";
 import { Props } from "../types/types";
 import { Box, Button } from "@mui/material";
 import { Input } from "@mui/material";
-import styles from "../model/styles";
-import { useEffect } from "react";
+import styles from "./styles";
 
 function Creator(props: Props) {
   function action() {
@@ -19,4 +17,4 @@ function Creator(props: Props) {
   )
 }
 
-export default Creator
+export {Creator}
