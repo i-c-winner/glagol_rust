@@ -1,21 +1,24 @@
 import * as strophe from 'strophe.js'
-import {config, setRegister, getRandomText} from "../../../shared";
-setRegister(strophe)
-console.log('conference')
+import { config, setRegister, getRandomText } from "../../../shared";
 
-const {Strophe}: any=strophe
-const connect= new Promise((resolve: any, reject: any)=>{
-  resolve( new  Strophe.Connection(config.xmppUrls))
+setRegister(strophe)
+
+const userId = getRandomText(5)
+const password = getRandomText(7)
+
+const { Strophe }: any = strophe
+const connect = new Promise((resolve: any, reject: any) => {
+  resolve(new Strophe.Connection(config.xmppUrls))
   reject(new Error('ошибка соеденения'))
 })
 
-connect.then((connection: any)=>{
-  function callback (status: number) {
+connect.then((connection: any) => {
+  function callback(status: number) {
     //@ts-ignore
     if (status === Strophe.Status.REGISTER) {
       // fill out the fields
-      connection.register.fields.username = getRandomText(5);
-      connection.register.fields.password = getRandomText(6);
+      connection.register.fields.username = userId;
+      connection.register.fields.password = password;
       // calling submit will continue the registration process
       connection.register.submit();
       //@ts-ignore
@@ -33,8 +36,11 @@ connect.then((connection: any)=>{
     } else if (status === Strophe.Status.REGIFAIL) {
       console.log("The Server does not support In-Band Registration")
     } else if (status === Strophe.Status.CONNECTED) {
-      console.log(window)
-      window.glagol.connection=connection
+      window.glagol.connection = connection
+      window.glagol.user = {
+        userId,
+        password
+      }
       console.log('connection')
       // do something after successful authentication
     } else {

@@ -1,8 +1,8 @@
-import { useEffect } from "react";
+
 
 function Room() {
   return (
-    <div className=""></div>
+    <div className="">Room</div>
   )
 }
 
