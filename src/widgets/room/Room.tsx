@@ -1,4 +1,5 @@
 import { useAsync } from "react-async";
+import {createOffer} from "../model/room/room";
 
 const getStreams = async () => {
   return await navigator.mediaDevices.getUserMedia({
@@ -8,6 +9,7 @@ const getStreams = async () => {
 }
 
 function Room() {
+
   const { data, error, isPending } = useAsync({ promiseFn: getStreams })
   if (error) new Error('Error getMediaDevices')
   if (isPending) return <p>...Pending</p>
@@ -18,8 +20,9 @@ function Room() {
     streams.getTracks().forEach((track) => {
       // @ts-ignore
       window.glagol.peerConnection.pc.addTrack(track)
+
     })
-    debugger
+    createOffer()
     return (
       <div className="">Room</div>
     )
