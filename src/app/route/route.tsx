@@ -1,14 +1,14 @@
 import { createBrowserRouter } from "react-router-dom";
-import MasterPage from "../APP/masterPage/MasterPage";
+import StartPage from "../APP/masterPage/StartPage";
 
 const route=createBrowserRouter([
 	{
 		path: '/:room',
-		element: <MasterPage />
+		element: <StartPage />
 	},
 	{
 		path: '/',
-		element: <MasterPage />
+		element: <StartPage />
 	}
 ]
 )

@@ -1,24 +1,13 @@
 import { Main } from "../../../pages";
-import { peerConnection } from "../../../entities";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import * as strophe from "strophe.js"
 import { config, setRegister } from "../../../shared";
 import { useAsync } from "react-async";
 import { getRandomText } from "../../../shared";
 
+// @ts-ignore
 const { Strophe } = strophe
-const pc: RTCPeerConnection= new RTCPeerConnection({
-  iceServers:[
-    {
-      urls: config.peerServer
-    }
-  ]
-})
-pc.onicecandidate=((event)=>{
-  if (event.candidate) {
 
-  }
-})
 setRegister(strophe)
 const userId = getRandomText(5)
 const password = getRandomText(8)
@@ -33,10 +22,12 @@ const connect = async ()=>{
 
 
 
-const  MasterPage=()=> {
+const  StartPage=()=> {
   console.log('masterPage')
   const [ connected, setConnected] = useState(false)
 const {data, error, isPending}= useAsync({promiseFn: connect})
+  if (isPending) return <p>...Pending</p>
+  if (error) new Error('connecting Error')
   if (data) {
     const connection = data
     function callback(status: number) {
@@ -83,4 +74,4 @@ const {data, error, isPending}= useAsync({promiseFn: connect})
   }
 }
 
-export default MasterPage
+export default StartPage
