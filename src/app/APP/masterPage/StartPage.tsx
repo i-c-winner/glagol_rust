@@ -8,7 +8,7 @@ import { getRandomText } from "../../../shared";
 // @ts-ignore
 const { Strophe } = strophe
 setRegister(strophe)
-const userId = getRandomText(5)
+const userNode = getRandomText(5)
 const password = getRandomText(8)
 const connect = async () => {
   const connection = await new Strophe.Connection(config.xmppUrls)
@@ -26,7 +26,7 @@ const StartPage = () => {
       //@ts-ignore
       if (status === Strophe.Status.REGISTER) {
         // fill out the fields
-        connection.register.fields.username = userId;
+        connection.register.fields.username = userNode;
         connection.register.fields.password = password;
         // calling submit will continue the registration process
         connection.register.submit();
@@ -49,7 +49,7 @@ const StartPage = () => {
         window.glagol.connection = connection
         // @ts-ignore
         window.glagol.user = {
-          userId,
+          userNode,
           password
         }
         // @ts-ignore  console.log(connection)

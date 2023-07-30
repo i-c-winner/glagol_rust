@@ -1,5 +1,4 @@
 export type Props = {
-  actionClick: ()=>void,
-  state: StateComponents
+  actionClick: (value: string)=>void,
 }
 export type StateComponents='creatingRoom'|'creatingDisplayName'|'isRoom'

@@ -4,10 +4,14 @@ import { useEffect, useState } from "react";
 
 export default function Main() {
   const [state, setState]=  useState<StateComponents>('creatingDisplayName')
-  function actionClick(){
+  function actionClick(value: string){
     if (state==='creatingDisplayName') {
+      // @ts-ignore
+      window.glagol.user.displayName=value
       setState('creatingRoom')
     } else {
+      // @ts-ignore
+      window.glagol.user.roomName=value
       setState('isRoom')
     }
   }
@@ -21,7 +25,7 @@ setState('creatingRoom')
   },[])
   return (
     <div className="main">
-    {(state==='creatingDisplayName'||state==='creatingRoom')? <Creator state={state} actionClick={actionClick}/>: null}
+    {(state==='creatingDisplayName'||state==='creatingRoom')? <Creator actionClick={actionClick}/>: null}
     {state==='isRoom'?<Room/>: null}
     </div>
   )

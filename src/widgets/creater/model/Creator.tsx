@@ -2,26 +2,31 @@ import { Props } from "../types/types";
 import { Box, Button } from "@mui/material";
 import { Input } from "@mui/material";
 import styles from "./styles";
+import { useRef, useState } from "react";
+import { getRandomText } from "../../../shared";
 
 function Creator(props: Props) {
-const timeInterval= setInterval(()=>{
-  // @ts-ignore
-  if (window.glagol.connected) {
-    console.log('interval')
-    clearInterval(timeInterval)
-  }
-}, 300)
+  const refInput = useRef<HTMLInputElement>(null)
+  const [ inputText, setInputText ] = useState<string>('')
+
   function action() {
-    props.actionClick()
+    if (inputText === '') {
+      props.actionClick(getRandomText(5))
+    } else {
+      if (refInput.current !== null) props.actionClick(inputText)
+    }
   }
 
+  function inputChange() {
+    if (refInput.current !== null) setInputText(refInput.current.value)
+  }
 
   return (
     <Box sx={styles.box}>
-      <Input/>
+      <Input onChange={inputChange} inputRef={refInput}/>
       <Button sx={styles.button} onClick={action}>Создать</Button>
     </Box>
   )
 }
 
-export {Creator}
+export { Creator }
