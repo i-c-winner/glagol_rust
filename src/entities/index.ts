@@ -1,1 +1,1 @@
-export {peerConnection as peerConnection} from './peerconnection/PeerConnection'
+export { peerConnection as peerConnection } from './peerconnection/PeerConnection'

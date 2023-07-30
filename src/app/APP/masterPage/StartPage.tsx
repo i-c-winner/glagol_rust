@@ -3,33 +3,28 @@ import { useState } from "react";
 import * as strophe from "strophe.js"
 import { config, setRegister } from "../../../shared";
 import { useAsync } from "react-async";
+import { handlersConference } from "../../../features/index";
 import { getRandomText } from "../../../shared";
-
 // @ts-ignore
 const { Strophe } = strophe
-
 setRegister(strophe)
 const userId = getRandomText(5)
 const password = getRandomText(8)
 // const connect=new Promise((resolve: any, reject: any) =>{
 //   resolve (new Strophe.Connection(config.xmppUrls))
 // })
-const connect = async ()=>{
-  const connection= await  new Strophe.Connection(config.xmppUrls)
-  console.log(connection)
+const connect = async () => {
+  const connection = await new Strophe.Connection(config.xmppUrls)
   return connection
 }
-
-
-
-const  StartPage=()=> {
-  console.log('masterPage')
-  const [ connected, setConnected] = useState(false)
-const {data, error, isPending}= useAsync({promiseFn: connect})
+const StartPage = () => {
+  const [ connected, setConnected ] = useState(false)
+  const { data, error, isPending } = useAsync({ promiseFn: connect })
   if (isPending) return <p>...Pending</p>
   if (error) new Error('connecting Error')
   if (data) {
     const connection = data
+
     function callback(status: number) {
       //@ts-ignore
       if (status === Strophe.Status.REGISTER) {
@@ -60,13 +55,18 @@ const {data, error, isPending}= useAsync({promiseFn: connect})
           userId,
           password
         }
-        // @ts-ignore
+        // @ts-ignore  console.log(connection)
+
         setConnected(true)
+       handlersConference()
+
+
         // do something after successful authentication
       } else {
         // Do other stuff
       }
     }
+
     connection.register.connect('prosolen.net', callback)
   }
   {
