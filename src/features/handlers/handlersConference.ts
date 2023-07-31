@@ -1,8 +1,10 @@
 function handlersConference() {
+  function handlerMessage (stanza: any){
+    console.log(stanza, 'Stanza')
+    return true
+  }
   // @ts-ignore
-  window.glagol.connection.addHandler(handlerMessage)
+window.glagol.connection.addHandler(handlerMessage)
 }
-function handlerMessage(stanza: any) {
-  console.log(stanza, 'Stanza')
-}
+
 export {handlersConference}

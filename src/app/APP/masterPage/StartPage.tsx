@@ -11,9 +11,9 @@ setRegister(strophe)
 const userNode = getRandomText(5)
 const password = getRandomText(8)
 const connect = async () => {
-  const connection = await new Strophe.Connection(config.xmppUrls)
-  return connection
+  return await new Strophe.Connection(config.xmppUrls)
 }
+let firstLoad = true
 
 const StartPage = () => {
   const [ connected, setConnected ] = useState(false)
@@ -45,35 +45,41 @@ const StartPage = () => {
       } else if (status === Strophe.Status.REGIFAIL) {
         console.log("The Server does not support In-Band Registration")
       } else if (status === Strophe.Status.CONNECTED) {
-        // @ts-ignore
-        window.glagol.connection = connection
-        // @ts-ignore
-        window.glagol.user = {
-          userNode,
-          password
+        if (firstLoad) {
+          // @ts-ignore
+          window.glagol.connection = connection
+          handlersConference()
+          // connection.addHandler((stanza: any)=>{
+          //   console.log(stanza)
+          //   return true
+          // })
+          // const message= new strophe.Strophe.Builder('message').c('body').t('body')
+          // console.log(connection, message)
+          // connection.send(message)
+          // @ts-ignore
+          window.glagol.user = {
+            userNode,
+            password
+          }
+
+          // @ts-ignore  console.log(connection)
+          const peerConnection = new PeerConnection()
+          // @ts-ignore
+          window.glagol.peerConnection = peerConnection
+          peerConnection.createHandlers()
+          setConnected(true)
+          firstLoad = false
         }
-        // @ts-ignore  console.log(connection)
-        handlersConference()
-        const peerConnection = new PeerConnection()
-        // @ts-ignore
-        window.glagol.peerConnection = peerConnection
-        peerConnection.createHandlers()
-        setConnected(true)
 
         // do something after successful authentication
       } else {
         // Do other stuff
       }
     }
-
-    connection.register.connect('prosolen.net', callback)
+    if (firstLoad) connection.register.connect("prosolen.net", callback)
   }
   {
     return connected ? <Main/> : null
   }
-
-
-
-
 }
 export default StartPage
