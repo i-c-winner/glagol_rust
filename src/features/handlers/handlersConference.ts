@@ -1,4 +1,3 @@
-import { createOffer } from "../../widgets/model/room/room";
 import { inviteRoom, validaterRoom } from "./createrMessage";
 
 function handlersConference() {
@@ -33,14 +32,6 @@ function handlersConference() {
     if (to === user.userNode) {
       if (type === 'result') {
         inviteRoom()
-        // @ts-ignore
-        window.glagol.peerConnection.createHandlers()
-        // @ts-ignore
-        window.glagol.localStreams.getTracks().forEach((track: MediaStreamTrack) => {
-          // @ts-ignore
-          window.glagol.peerConnection.pc.addTrack(track)
-        })
-        createOffer()
       }
       console.log(stanza, 'IQ')
       return true

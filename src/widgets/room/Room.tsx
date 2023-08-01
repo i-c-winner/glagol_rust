@@ -9,7 +9,8 @@ const getStreams = async () => {
 }
 
 function Room() {
-
+  // @ts-ignore
+  const { Strophe } = window.global
   const { data, error, isPending } = useAsync({ promiseFn: getStreams })
   useEffect(() => {
     // @ts-ignore
@@ -21,13 +22,12 @@ function Room() {
     // @ts-ignore
     window.glagol.localStreams = data
     // @ts-ignore
-    // data.getTracks().forEach((track) => {
-    //   // @ts-ignore
-    //   window.glagol.peerConnection.pc.addTrack(track)
-    // })
-    // createOffer()
+    data.getTracks().forEach((track: MediaStreamTrack) => {
+      // @ts-ignore
+      window.glagol.peerConnection.pc.addTrack(track)
+    })
 
-    const { $build, Strophe } = window.global
+
     // @ts-ignore
     const { user, connection } = window.glagol
     //

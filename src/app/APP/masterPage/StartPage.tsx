@@ -55,6 +55,7 @@ const StartPage = () => {
             password
           }
           const peerConnection = new PeerConnection()
+          peerConnection.createHandlers()
           // @ts-ignore
           window.glagol.peerConnection = peerConnection
           setConnected(true)
