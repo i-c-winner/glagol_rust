@@ -1,6 +1,7 @@
 import { inviteRoom, validaterRoom } from "./createrMessage";
 
 function handlersConference() {
+
   function handlerPresence(stanza: any) {
     // @ts-ignore
     const { Strophe } = window.global
@@ -8,7 +9,6 @@ function handlersConference() {
     const { user } = window.glagol
     const to = stanza.getAttribute('to').split('@')[0]
     const xAttributes = stanza.getElementsByTagName('x')
-    console.log(to, user.roomName)
     if (to === user.userNode) {
       const statuses = xAttributes[1].getElementsByTagName('status')
       Array.from(statuses).forEach((status: any) => {
@@ -20,7 +20,7 @@ function handlersConference() {
         }
       })
     }
-    console.log(stanza, 'Stanza')
+    console.info(stanza, 'Stanza')
     return true
   }
 
@@ -33,12 +33,19 @@ function handlersConference() {
       if (type === 'result') {
         inviteRoom()
       }
-      console.log(stanza, 'IQ')
+      console.info(stanza, 'IQ')
       return true
     }
   }
   function handlerMessage(stanza: any) {
-    console.log(stanza, 'message')
+    // @ts-ignore
+    const { Strophe } = window.global
+    const body=stanza.getElementsByTagName('body')[0]
+    const bodyText=Strophe.getText(body)
+    if (bodyText==='add_track') {
+
+    }
+    console.info(stanza, 'message')
     return true
   }
 
