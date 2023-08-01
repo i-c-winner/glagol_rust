@@ -49,13 +49,6 @@ const StartPage = () => {
           // @ts-ignore
           window.glagol.connection = connection
           handlersConference()
-          // connection.addHandler((stanza: any)=>{
-          //   console.log(stanza)
-          //   return true
-          // })
-          // const message= new strophe.Strophe.Builder('message').c('body').t('body')
-          // console.log(connection, message)
-          // connection.send(message)
           // @ts-ignore
           window.glagol.user = {
             userNode,
@@ -64,7 +57,6 @@ const StartPage = () => {
           const peerConnection = new PeerConnection()
           // @ts-ignore
           window.glagol.peerConnection = peerConnection
-          peerConnection.createHandlers()
           setConnected(true)
           firstLoad = false
         }

@@ -1,7 +1,6 @@
 import { useAsync } from "react-async";
-import { createOffer } from "../model/room/room";
 import { useEffect } from "react";
-
+// import { createOffer } from "../model/room/room";
 const getStreams = async () => {
   return await navigator.mediaDevices.getUserMedia({
     video: true,
@@ -10,9 +9,24 @@ const getStreams = async () => {
 }
 
 function Room() {
+
   const { data, error, isPending } = useAsync({ promiseFn: getStreams })
   useEffect(() => {
     // @ts-ignore
+  }, [])
+
+  if (error) new Error('Error getMediaDevices')
+  if (isPending) return <p>...Pending</p>
+  if (data) {
+    // @ts-ignore
+    window.glagol.localStreams = data
+    // @ts-ignore
+    // data.getTracks().forEach((track) => {
+    //   // @ts-ignore
+    //   window.glagol.peerConnection.pc.addTrack(track)
+    // })
+    // createOffer()
+
     const { $build, Strophe } = window.global
     // @ts-ignore
     const { user, connection } = window.glagol
@@ -27,27 +41,13 @@ function Room() {
     }).c('x', {
       xmlns: 'http://jabber.org/protocol/muc'
     })
-      console.log('send room')
-    console.log(message)
-      connection.send(message)
-  }, [])
-
-  if (error) new Error('Error getMediaDevices')
-  if (isPending) return <p>...Pending</p>
-  if (data) {
-    const streams = data
-    // @ts-ignore
-    window.glagol.localStreams = streams
-    streams.getTracks().forEach((track) => {
-      // @ts-ignore
-      window.glagol.peerConnection.pc.addTrack(track)
-    })
-    createOffer()
+    connection.send(message)
     return (
       <div className="">
-        <p>{`userNode: ${window.glagol.user.userNode}`}</p>
-        <p>{`roomName: ${window.glagol.user.roomName}`}</p>
-        <p>{`displayName: ${window.glagol.user.displayName}`}</p>
+        <p>{`userNode: ${user.userNode}`}</p>
+        <p>{`roomName: ${user.roomName}`}</p>
+        <p>{`displayName: ${user.displayName}`}</p>
+        <p>{`password: ${user.password}`}</p>
       </div>
     )
   }

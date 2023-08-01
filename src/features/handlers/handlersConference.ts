@@ -1,5 +1,7 @@
-function handlersConference() {
+import { createOffer } from "../../widgets/model/room/room";
+import { inviteRoom, validaterRoom } from "./createrMessage";
 
+function handlersConference() {
   function handlerPresence(stanza: any) {
     // @ts-ignore
     const { Strophe } = window.global
@@ -12,19 +14,10 @@ function handlersConference() {
       const statuses = xAttributes[1].getElementsByTagName('status')
       Array.from(statuses).forEach((status: any) => {
         if (Number(status.getAttribute('code')) === 201) {
-          const message = new Strophe.Builder('iq', {
-            from: `${user.roomName}@prosolen.net/${user.userNode}`,
-            id: 'userNode',
-            to: `${user.roomName}@conference.prosolen.net`,
-            type: 'set'
-          }).c('query', {
-            xmlns: 'http://jabber.org/protocol/muc#owner'
-          }).c('x', {
-            xmlns: 'jabber:x:data',
-            type: 'submit'
-          })
-          // @ts-ignore
-          window.glagol.connection.send(message)
+          validaterRoom()
+        }
+        if (Number(status.getAttribute('code')) === 101) {
+          inviteRoom()
         }
       })
     }
@@ -33,18 +26,37 @@ function handlersConference() {
   }
 
   function handlerIq(stanza: any) {
-    console.log(stanza, 'IQ')
+    // @ts-ignore
+    const { user } = window.glagol
+    const type = stanza.getAttribute('type')
+    const to = stanza.getAttribute('to').split('@')[0]
+    if (to === user.userNode) {
+      if (type === 'result') {
+        inviteRoom()
+        // @ts-ignore
+        window.glagol.peerConnection.createHandlers()
+        // @ts-ignore
+        window.glagol.localStreams.getTracks().forEach((track: MediaStreamTrack) => {
+          // @ts-ignore
+          window.glagol.peerConnection.pc.addTrack(track)
+        })
+        createOffer()
+      }
+      console.log(stanza, 'IQ')
+      return true
+    }
+  }
+  function handlerMessage(stanza: any) {
+    console.log(stanza, 'message')
     return true
   }
-function handlerAll(stanza: any) {
-    console.log(stanza, 'ALL')
-  return true
-}
-  // @ts-ignore
-  window.glagol.connection.addHandler(handlerPresence, '', 'presence')
-  // @ts-ignore
-  window.glagol.connection.addHandler(handlerIq, '', 'iq')
-  window.glagol.connection.addHandler(handlerAll, '','')
+
+// @ts-ignore
+  const { connection } = window.glagol
+  connection.addHandler(handlerPresence, '', 'presence')
+  connection.addHandler(handlerIq, '', 'iq')
+  // connection.addHandler(handlerAll, '', '')
+  connection.addHandler(handlerMessage, '', 'message')
 
 }
 
