@@ -28,7 +28,7 @@ class PeerConnection {
           ).c('body').t(candidate)
           console.log('candidateB64 sent')
          // @ts-ignore
-          window.glagol.connection.send(message)
+         //  window.glagol.connection.send(message)
         } else {
           console.log('candidateB64 is empty');
         }

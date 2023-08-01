@@ -44,7 +44,11 @@ function Room() {
     })
     createOffer()
     return (
-      <div className="">Room</div>
+      <div className="">
+        <p>{`userNode: ${window.glagol.user.userNode}`}</p>
+        <p>{`roomName: ${window.glagol.user.roomName}`}</p>
+        <p>{`displayName: ${window.glagol.user.displayName}`}</p>
+      </div>
     )
   }
 }

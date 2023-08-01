@@ -61,8 +61,6 @@ const StartPage = () => {
             userNode,
             password
           }
-
-          // @ts-ignore  console.log(connection)
           const peerConnection = new PeerConnection()
           // @ts-ignore
           window.glagol.peerConnection = peerConnection
