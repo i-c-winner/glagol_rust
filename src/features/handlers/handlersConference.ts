@@ -1,4 +1,5 @@
 import { inviteRoom, validaterRoom } from "./createrMessage";
+import { descripter } from "../descripter/discripter";
 
 function handlersConference() {
 
@@ -37,13 +38,19 @@ function handlersConference() {
       return true
     }
   }
+
   function handlerMessage(stanza: any) {
     // @ts-ignore
     const { Strophe } = window.global
-    const body=stanza.getElementsByTagName('body')[0]
-    const bodyText=Strophe.getText(body)
-    if (bodyText==='add_track') {
-
+    const body = stanza.getElementsByTagName('body')[0]
+    const bodyText = Strophe.getText(body)
+    const jimble = stanza.getElementsByTagName('jimble')
+    const jimbleText = Strophe.getText(jimble[0])
+    const audio = stanza.getAttribute('audio')
+    const video = stanza.getAttribute('video')
+    if (bodyText === 'add_track') {
+      console.log(audio, video, jimbleText)
+      descripter.setRemoteDescription(jimbleText)
     }
     console.info(stanza, 'message')
     return true
