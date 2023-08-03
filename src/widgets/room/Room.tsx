@@ -14,6 +14,8 @@ function Room() {
   const { data, error, isPending } = useAsync({ promiseFn: getStreams })
   useEffect(() => {
     // @ts-ignore
+    window.history.replaceState({}, '', window.glagol.user.roomName)
+    // @ts-ignore
   }, [])
 
   if (error) new Error('Error getMediaDevices')
