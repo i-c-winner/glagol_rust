@@ -1,5 +1,6 @@
 import { inviteRoom, validaterRoom } from "./createrMessage";
-import { descripter } from "../descripter/discripter";
+import { descriptor } from "../descripter/discripter";
+import {Params} from "../types";
 
 function handlersConference() {
 
@@ -45,12 +46,24 @@ function handlersConference() {
     const body = stanza.getElementsByTagName('body')[0]
     const bodyText = Strophe.getText(body)
     const jimble = stanza.getElementsByTagName('jimble')
-    const jimbleText = Strophe.getText(jimble[0])
-    const audio = stanza.getAttribute('audio')
-    const video = stanza.getAttribute('video')
+    const jimbleText: string = Strophe.getText(jimble[0])
+    let audio= 0
+    let video=0
+   try {
+     audio = jimble[0].getAttribute('audio')
+     video = jimble[0].getAttribute('video')
+   } catch (e) {
+
+   }
+
     if (bodyText === 'add_track') {
       console.log(audio, video, jimbleText)
-      descripter.setRemoteDescription(jimbleText)
+      const params: Params= {
+        audio,
+        video,
+        description: jimbleText
+      }
+      descriptor.setRemoteDescription(params)
     }
     console.info(stanza, 'message')
     return true

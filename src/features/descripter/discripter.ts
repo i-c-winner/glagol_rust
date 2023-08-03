@@ -1,9 +1,15 @@
 
-import { Descripter } from "../types/type";
-const descripter: Descripter ={
-  setRemoteDescription: function (descripter){
+import { Descriptor} from "../types";
+const descriptor: Descriptor ={
+  currentTransceiver: {
+    audio: 0,
+    video: 0
+  },
+  setRemoteDescription: function (params){
   const pc = this.getPeerConnection()
-    pc.setRemoteDescription(JSON.parse(atob(descripter)))
+    pc.setRemoteDescription(JSON.parse(atob(params.description))).then(()=>{
+console.log(params)
+    })
     console.log(pc)
   },
   getPeerConnection:()=> {
@@ -12,4 +18,4 @@ const descripter: Descripter ={
   }
 }
 
-export {descripter}
+export {descriptor}
