@@ -4,7 +4,8 @@ type Descriptor = {
     video: number
   },
   setRemoteDescription: (description: Params)=>void,
-  getPeerConnection: ()=>RTCPeerConnection
+  getPeerConnection: ()=>RTCPeerConnection,
+  addTransceivers: (audio: number, video: number) => void
 }
 
 type Params ={
