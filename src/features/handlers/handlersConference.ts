@@ -57,13 +57,18 @@ function handlersConference() {
    }
 
     if (bodyText === 'add_track') {
-      console.log(audio, video, jimbleText)
-      const params: Params= {
-        audio,
-        video,
-        description: jimbleText
+      // @ts-ignore
+      const peerConnection  = window.glagol.peerConnection.pc
+      if (!peerConnection) {
+        console.log(audio, video, jimbleText)
+        const params: Params= {
+          audio,
+          video,
+          description: jimbleText
+        }
+        descriptor.setRemoteDescription(params)
       }
-      descriptor.setRemoteDescription(params)
+
     }
     console.info(stanza, 'message')
     return true

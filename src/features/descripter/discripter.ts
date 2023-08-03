@@ -1,5 +1,6 @@
 
 import { Descriptor} from "../types";
+import { doSignaling } from "./signaling";
 const descriptor: Descriptor ={
   currentTransceiver: {
     audio: 0,
@@ -7,11 +8,10 @@ const descriptor: Descriptor ={
   },
   setRemoteDescription: function (params){
   const pc = this.getPeerConnection()
+    this.addTransceivers(params.audio, params.video)
     pc.setRemoteDescription(JSON.parse(atob(params.description))).then(()=>{
-console.log(params)
-      this.addTransceivers(params.audio, params.video)
+      this.createAnswer()
     })
-    console.log(pc)
   },
   getPeerConnection:()=> {
     // @ts-ignore
@@ -21,7 +21,6 @@ console.log(params)
     // @ts-ignore
     const peerConnection= window.glagol.peerConnection.pc
     const trancicviers: RTCRtpTransceiver[] = peerConnection.getTransceivers()
-    console.log(trancicviers)
     const audioTranciver: RTCRtpTransceiver[]= []
     const videoTranciver: RTCRtpTransceiver[]= []
     trancicviers.forEach((transceiver)=>{
@@ -31,8 +30,6 @@ console.log(params)
         audioTranciver.push(transceiver)
       }
     })
-    console.log('audio', audioTranciver)
-    console.log('video', videoTranciver)
     const delta= {
       audio: audioTranciver.length-this.currentTransceiver.audio+Number(audio),
       video: videoTranciver.length-this.currentTransceiver.video+Number(video)
@@ -51,7 +48,17 @@ console.log(params)
         })
       }
     }
-    console.log(peerConnection.getTransceivers())
+  },
+  createAnswer: function (){
+    const peerConnection= this.getPeerConnection()
+    peerConnection.createAnswer({
+      iceRestat: false
+    }).then((answer: any)=>{
+      peerConnection.setLocalDescription(answer)
+      console.log(answer, "ANSWER")
+      const answer64=btoa(JSON.stringify({answer}))
+      doSignaling(answer64)
+    })
   }
 }
 

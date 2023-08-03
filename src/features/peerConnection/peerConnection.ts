@@ -17,23 +17,23 @@ class PeerConnection {
     this.pc.onicecandidate = (event) => {
       const candidate = btoa(JSON.stringify({ candidate: event.candidate }))
       if (event.candidate) {
+        const candidate64 =btoa(JSON.stringify({
+          candidate: event.candidate
+        }))
         if (candidate) {
           // @ts-ignore
           const { user } = window.glagol
           // @ts-ignore
           const { Strophe } = window.global
+
           const message = new Strophe.Builder('message', {
               to: `${user.roomName}@conference.prosolen.net/focus`,
               type: 'chat'
             }
-          ).c('body').t(candidate)
-          console.log('candidateB64 sent')
+          ).c('body').t(candidate64)
+          // @ts-ignore
           // @ts-ignore
           window.glagol.connection.send(message)
-          // @ts-ignore
-          // window.glagol.connection.send(btoa(JSON.stringify({
-          //   candidate: event.candidate
-          // })))
         } else {
           console.log('candidateB64 is empty');
         }
