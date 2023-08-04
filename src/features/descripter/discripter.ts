@@ -55,7 +55,6 @@ const descriptor: Descriptor ={
       iceRestat: false
     }).then((answer: any)=>{
       peerConnection.setLocalDescription(answer)
-      console.log(answer, "ANSWER")
       const answer64=btoa(JSON.stringify({answer}))
       doSignaling(answer64)
     })

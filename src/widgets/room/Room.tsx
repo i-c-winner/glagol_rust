@@ -26,20 +26,12 @@ function Room() {
     // @ts-ignore
     data.getTracks().forEach((track: MediaStreamTrack) => {
       // @ts-ignore
-      window.glagol.peerConnection.pc.addTrack(track)
+      // window.glagol.peerConnection.pc.addTrack(track)
     })
-
-
     // @ts-ignore
     const { user, connection } = window.glagol
-    //
-    // <presence to='firstRoom@conference.prosolen.net/user2345'>
-    //   <x xmlns='http://jabber.org/protocol/muc'/>
-    //   </presence>
-    console.log(connection)
     const message = new Strophe.Builder('presence', {
       to: `${user.roomName}@conference.prosolen.net/${user.userNode}`,
-      // from:  `${user.displayName}@prosolen.net/${user.userNode}`
     }).c('x', {
       xmlns: 'http://jabber.org/protocol/muc'
     })

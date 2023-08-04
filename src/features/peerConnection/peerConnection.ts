@@ -40,7 +40,7 @@ class PeerConnection {
       }
     }
     this.pc.ontrack = (event) => {
-      console.log(event, 'addTrack')
+      console.log('%c addTrack', 'color: red; font-size: 25px', event)
     }
   }
 }

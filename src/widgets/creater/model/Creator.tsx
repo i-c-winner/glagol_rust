@@ -2,7 +2,7 @@ import { Props } from "../types/types";
 import { Box, Button } from "@mui/material";
 import { Input } from "@mui/material";
 import styles from "./styles";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { getRandomText } from "../../../shared";
 
 function Creator(props: Props) {

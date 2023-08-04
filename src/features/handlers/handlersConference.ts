@@ -9,20 +9,18 @@ function handlersConference() {
     const { Strophe } = window.global
     // @ts-ignore
     const { user } = window.glagol
-    const to = stanza.getAttribute('to').split('@')[0]
     const xAttributes = stanza.getElementsByTagName('x')
-    if (to === user.userNode) {
-      const statuses = xAttributes[1].getElementsByTagName('status')
-      Array.from(statuses).forEach((status: any) => {
-        if (Number(status.getAttribute('code')) === 201) {
-          validaterRoom()
-        }
-        if (Number(status.getAttribute('code')) === 101) {
-          inviteRoom()
-        }
-      })
+    const from: any =stanza.getAttribute('from')
+    const fromSource=Strophe.getResourceFromJid(from)
+
+    if (fromSource === user.userNode) {
+      const statuses: any[] = xAttributes[1].getElementsByTagName('status')
+      if (Number(Array.from(statuses)[0].getAttribute('code'))===201){
+        validaterRoom()
+      } else if (Number(Array.from(statuses)[0].getAttribute('code'))===100){
+        inviteRoom()
+      }
     }
-    console.info(stanza, 'Stanza')
     return true
   }
 
@@ -59,7 +57,6 @@ function handlersConference() {
     if (bodyText === 'add_track') {
       // @ts-ignore
       const peerConnection  = window.glagol.peerConnection.pc
-      if (!peerConnection) {
         console.log(audio, video, jimbleText)
         const params: Params= {
           audio,
@@ -67,8 +64,12 @@ function handlersConference() {
           description: jimbleText
         }
         descriptor.setRemoteDescription(params)
-      }
 
+
+    } else if (bodyText==='ice_candidate') {
+      // @ts-ignore
+      console.log(window.glagol.peerConnection.pc.remoteDescription)
+      console.log('ICE CANDIDATE')
     }
     console.info(stanza, 'message')
     return true
