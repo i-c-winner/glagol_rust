@@ -15,7 +15,12 @@ const descriptor: Descriptor ={
   const pc = this.getPeerConnection()
     this.addTransceivers(params.audio, params.video)
     pc.setRemoteDescription(JSON.parse(atob(params.description))).then(()=>{
-      this.createAnswer()
+
+     while (this.candidates.length>0) {
+       const candidate=this.candidates.shift()
+       pc.addIceCandidate(candidate)
+     }
+     //  this.createAnswer()
     })
   },
   getPeerConnection:()=> {
@@ -57,7 +62,7 @@ const descriptor: Descriptor ={
   createAnswer: function (){
     const peerConnection= this.getPeerConnection()
     peerConnection.createAnswer({
-      iceRestat: false
+      iceRestart: false
     }).then((answer: any)=>{
       peerConnection.setLocalDescription(answer)
       const answer64=btoa(JSON.stringify({answer}))

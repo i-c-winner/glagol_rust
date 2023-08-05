@@ -76,8 +76,6 @@ function handlersConference() {
       } else {
         descriptor.setCandidate(icecandidate)
       }
-
-      console.log('ICE CANDIDATE')
     }
     console.info(stanza, 'message')
     return true
