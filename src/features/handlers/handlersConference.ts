@@ -64,8 +64,6 @@ function handlersConference() {
           description: jimbleText
         }
         descriptor.setRemoteDescription(params)
-
-
     } else if (bodyText==='ice_candidate') {
       // @ts-ignore
       const peerConnection  = window.glagol.peerConnection.pc

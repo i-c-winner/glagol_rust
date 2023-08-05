@@ -3,8 +3,8 @@ import { Descriptor} from "../types";
 import { doSignaling } from "./signaling";
 const descriptor: Descriptor ={
   currentTransceiver: {
-    audio: 0,
-    video: 0
+    audio: 1,
+    video: 1
   },
   candidates : [],
   setCandidate: function (candidate: RTCIceCandidate){
@@ -33,6 +33,10 @@ const descriptor: Descriptor ={
     const trancicviers: RTCRtpTransceiver[] = peerConnection.getTransceivers()
     const audioTranciver: RTCRtpTransceiver[]= []
     const videoTranciver: RTCRtpTransceiver[]= []
+
+
+
+
     trancicviers.forEach((transceiver)=>{
       if (transceiver.receiver.track.kind==='video') {
         videoTranciver.push(transceiver)
@@ -45,19 +49,22 @@ const descriptor: Descriptor ={
       video: videoTranciver.length-this.currentTransceiver.video+Number(video)
     }
     if (delta.video<0) {
-      for (let i=0; i<=(Math.abs(delta.video)); i++) {
+      for (let i=0; i<(Math.abs(delta.video)); i++) {
+        this.currentTransceiver.video+=1
         peerConnection.addTransceiver('video', {
           direction: 'recvonly'
         })
       }
     }
     if (delta.audio<0) {
-      for (let i=0; i<=(Math.abs(delta.audio)); i++) {
+      this.currentTransceiver.audio+=1
+      for (let i=0; i<(Math.abs(delta.audio)); i++) {
         peerConnection.addTransceiver('audio', {
           direction: 'recvonly'
         })
       }
     }
+    console.log(peerConnection.getTransceivers())
   },
   createAnswer: function (){
     const peerConnection= this.getPeerConnection()
