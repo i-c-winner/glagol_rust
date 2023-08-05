@@ -68,7 +68,15 @@ function handlersConference() {
 
     } else if (bodyText==='ice_candidate') {
       // @ts-ignore
-      console.log(window.glagol.peerConnection.pc.remoteDescription)
+      const peerConnection  = window.glagol.peerConnection.pc
+      const jimbleMessage=JSON.parse(atob(jimbleText))
+      const icecandidate= new RTCIceCandidate(jimbleMessage)
+      if (peerConnection.remoteDescription) {
+        peerConnection.addIceCandidate(icecandidate)
+      } else {
+        descriptor.setCandidate(icecandidate)
+      }
+
       console.log('ICE CANDIDATE')
     }
     console.info(stanza, 'message')

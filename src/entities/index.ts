@@ -1,1 +1,0 @@
-export { peerConnection as peerConnection } from './peerconnection/PeerConnection'

@@ -3,6 +3,8 @@ type Descriptor = {
     audio: number,
     video: number
   },
+  candidates: RTCIceCandidate[],
+  setCandidate: (candidate: RTCIceCandidate) =>void
   setRemoteDescription: (description: Params)=>void,
   getPeerConnection: ()=>RTCPeerConnection,
   addTransceivers: (audio: number, video: number) => void,

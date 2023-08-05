@@ -6,6 +6,11 @@ const descriptor: Descriptor ={
     audio: 0,
     video: 0
   },
+  candidates : [],
+  setCandidate: function (candidate: RTCIceCandidate){
+    this.candidates.push(candidate)
+},
+
   setRemoteDescription: function (params){
   const pc = this.getPeerConnection()
     this.addTransceivers(params.audio, params.video)
