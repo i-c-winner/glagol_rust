@@ -5,6 +5,8 @@ import { config, setRegister } from "../../../shared";
 import { useAsync } from "react-async";
 import { handlersConference, PeerConnection } from "../../../features";
 import { getRandomText } from "../../../shared";
+import { useSelector, useDispatch } from "react-redux";
+import { addDisplayName, addUserNode, GlagolSlice } from "../../index";
 // @ts-ignore
 const { Strophe } = strophe
 setRegister(strophe)
@@ -16,12 +18,15 @@ const connect = async () => {
 let firstLoad = true
 
 const StartPage = () => {
+  const dispatch = useDispatch()
+  const user = useSelector((state: GlagolSlice) => state.user)
   const [ connected, setConnected ] = useState(false)
   const { data, error, isPending } = useAsync({ promiseFn: connect })
   if (isPending) return <p>...Pending</p>
   if (error) new Error('connecting Error')
   if (data) {
     const connection = data
+
     function callback(status: number) {
       //@ts-ignore
       if (status === Strophe.Status.REGISTER) {
@@ -50,6 +55,7 @@ const StartPage = () => {
           window.glagol.connection = connection
           handlersConference()
           // @ts-ignore
+          dispatch(addUserNode(userNode))
           window.glagol.user = {
             userNode,
             password
@@ -67,6 +73,7 @@ const StartPage = () => {
         // Do other stuff
       }
     }
+
     if (firstLoad) connection.register.connect("prosolen.net", callback)
   }
   {

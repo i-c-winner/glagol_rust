@@ -17,6 +17,7 @@ export const glagolSlice = createSlice({
   initialState,
   reducers: {
     addUserNode: ((state: any, action) => {
+      debugger
       state.user.userNode = action.payload
     }),
     addRoomName: ((state: GlagolSlice, action) => {
