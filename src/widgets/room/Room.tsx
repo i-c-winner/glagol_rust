@@ -26,7 +26,7 @@ function Room() {
     // @ts-ignore
     data.getTracks().forEach((track: MediaStreamTrack) => {
       // @ts-ignore
-      // window.glagol.peerConnection.pc.addTrack(track)
+      window.glagol.peerConnection.pc.addTrack(track)
     })
     // @ts-ignore
     const { user, connection } = window.glagol
@@ -42,6 +42,7 @@ function Room() {
         <p>{`roomName: ${user.roomName}`}</p>
         <p>{`displayName: ${user.displayName}`}</p>
         <p>{`password: ${user.password}`}</p>
+        <div id='video' ></div>
       </div>
     )
   }
