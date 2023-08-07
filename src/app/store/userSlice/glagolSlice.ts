@@ -18,9 +18,31 @@ export const glagolSlice = createSlice({
   reducers: {
     addUserNode: ((state: any, action) => {
       state.user.userNode = action.payload
+    }),
+    addRoomName: ((state: GlagolSlice, action) => {
+      state.user.roomName = action.payload
+    }),
+    addDisplayName: ((state: GlagolSlice, action) => {
+      state.user.displayName = action.payload
+    }),
+    addConnection: ((state: GlagolSlice, action) => {
+      state.connection = action.payload
+    }),
+    addLocalStreams: ((state: GlagolSlice, action) => {
+      state.localStreams = action.payload
+    }),
+    addPeerConnection: ((state: GlagolSlice, action) => {
+      state.peerConnection = action.payload
     })
   }
 })
 
-export const { addUserNode } = glagolSlice.actions
-export default  glagolSlice.reducer
+export const {
+  addUserNode,
+  addConnection,
+  addPeerConnection,
+  addLocalStreams,
+  addRoomName,
+  addDisplayName
+} = glagolSlice.actions
+export default glagolSlice.reducer
