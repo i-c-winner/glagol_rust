@@ -45,8 +45,7 @@ const descriptor: Descriptor = {
      })
      this.currentTransceiver.video-=1
    } while (this.currentTransceiver.video>0)
-
-    // this.createAnswer()
+    this.createAnswer()
   },
   createAnswer: function () {
     const peerConnection = this.getPeerConnection()

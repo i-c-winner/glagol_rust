@@ -1,4 +1,5 @@
 import { config } from "../../shared";
+import { doSignaling } from "../descripter/signaling";
 
 class PeerConnection {
   private pc: RTCPeerConnection;
@@ -27,13 +28,7 @@ class PeerConnection {
           const candidate64 = btoa(JSON.stringify({
             candidate: event.candidate
           }))
-          const message = new Strophe.Builder('message', {
-              to: `${user.roomName}@conference.prosolen.net/focus`,
-              type: 'chat'
-            }
-          ).c('body').t(candidate64)
-          // @ts-ignore
-          window.glagol.connection.send(message)
+          doSignaling(candidate64)
         }
       }
     }
