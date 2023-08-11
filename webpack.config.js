@@ -2,6 +2,7 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
+  entry: "./src/app/main.tsx",
   output: {
     path: path.join(__dirname, "/dist"), // the bundle output path
     filename: "bundle.js", // the name of the bundle
@@ -13,6 +14,9 @@ module.exports = {
   ],
   devServer: {
     port: 3030, // you can change the port
+  },
+  resolve: {
+    extensions: ['.js', '.jsx', '.ts', '.tsx'],
   },
   module: {
     rules: [
@@ -32,6 +36,9 @@ module.exports = {
         loader: "url-loader",
         options: { limit: false },
       },
+      {
+        test: /\.([cm]?ts|tsx)$/, loader: "ts-loader"
+      }
     ],
   },
 };
