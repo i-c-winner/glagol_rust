@@ -13,8 +13,11 @@ module.exports = {
     }),
   ],
   devServer: {
-    port: 3030, // you can change the port
+    historyApiFallback: true,
   },
+  // devServer: {
+  //   port: 3030, // you can change the port
+  // },
   resolve: {
     extensions: ['.js', '.jsx', '.ts', '.tsx'],
   },

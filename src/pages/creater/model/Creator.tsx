@@ -25,7 +25,7 @@ function Creator(props: Props) {
   return (
     <Box sx={styles.box}>
       <Input onChange={inputChange} inputRef={refInput} />
-      <Button sx={styles.button} onClick={action}>{props.state==='creatingRoom'? 'Creater Room': 'createrName'}</Button>
+      <Button sx={styles.button} onClick={action}>{props.state==='creatingRoom'? 'Creater Room': 'creater Name'}</Button>
     </Box>
   )
 }

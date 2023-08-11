@@ -8,6 +8,7 @@ import { getRandomText } from "../../../shared/index";
 import {glagol} from "../../../shared/";
 // @ts-ignore
 const { Strophe } = strophe
+debugger
 setRegister(strophe)
 const userNode = getRandomText(5)
 const password = getRandomText(8)
@@ -17,6 +18,7 @@ const connect = async () => {
 let firstLoad = true
 
 const StartPage = () => {
+
   const [ connected, setConnected ] = useState(false)
   const { data, error, isPending } = useAsync({ promiseFn: connect })
   if (isPending) return <p>...Pending</p>
