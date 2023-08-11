@@ -1,13 +1,13 @@
 import { inviteRoom, validaterRoom } from "./createrMessage";
 import { descriptor } from "../descripter/discripter";
 import {Params} from "../types";
-import {glagol} from "../../shared/glagol/glagol";
+import {glagol} from "../../shared";
 
 function handlersConference() {
 
   function handlerPresence(stanza: any) {
     // @ts-ignore
-    const  Strophe  = window.Stophe
+    const  Strophe  = window.Strophe
     // @ts-ignore
     const { user } = glagol
     const xAttributes = stanza.getElementsByTagName('x')

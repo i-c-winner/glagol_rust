@@ -5,7 +5,7 @@ import { config, setRegister } from "../../../shared/index";
 import { useAsync } from "react-async";
 import { handlersConference, PeerConnection } from "../../../features/index";
 import { getRandomText } from "../../../shared/index";
-import {glagol} from "../../../shared/glagol/glagol";
+import {glagol} from "../../../shared/";
 // @ts-ignore
 const { Strophe } = strophe
 setRegister(strophe)

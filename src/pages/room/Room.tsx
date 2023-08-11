@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { BigScreen } from "../../widgets/BIgScreen/BigScreen";
 import './index.scss'
 import { streams } from "../../shared";
-import {glagol} from "../../shared/glagol/glagol";
+import {glagol} from "../../shared";
 
 const getStreams = async () => {
   return await navigator.mediaDevices.getUserMedia({

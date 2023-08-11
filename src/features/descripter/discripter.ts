@@ -1,6 +1,6 @@
 import { Descriptor } from "../types";
 import { doSignaling } from "./signaling";
-import {glagol} from "../../shared/glagol/glagol";
+import {glagol} from "../../shared";
 
 const descriptor: Descriptor = {
   currentTransceiver: {

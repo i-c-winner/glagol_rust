@@ -1,4 +1,4 @@
-import {glagol} from "../../shared/glagol/glagol";
+import {glagol} from "../../shared";
 
 function doSignaling (answer: string) {
   // @ts-ignore

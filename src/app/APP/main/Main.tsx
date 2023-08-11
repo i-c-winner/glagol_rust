@@ -2,7 +2,7 @@ import { Creator, Room } from "../../../pages/index";
 import { StateComponents } from "../../../pages/creater/types/types";
 import { useEffect, useState } from "react";
 import '../../styles/index.scss'
-import {glagol} from "../../../shared/glagol/glagol";
+import {glagol} from "../../../shared";
 
 export default function Main() {
   const [ state, setState ] = useState<StateComponents>('creatingRoom')

@@ -1,6 +1,7 @@
 import { config } from "../../shared";
 import { doSignaling } from "../descripter/signaling";
 import { streams } from "../../shared";
+import {glagol} from "../../shared";
 
 class PeerConnection {
   pc: RTCPeerConnection;

@@ -1,4 +1,4 @@
-import {glagol} from "../../shared/glagol/glagol";
+import {glagol} from "../../shared";
 
 function validaterRoom() {
   // @ts-ignore
@@ -26,7 +26,6 @@ function inviteRoom() {
   // @ts-ignore
   const { user } = glagol
   // @ts-ignore
-  const glagol = glagol
   const invitation = {
     action: "INVITATION",
     localTracks: {
