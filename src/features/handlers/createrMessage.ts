@@ -4,7 +4,7 @@ function validaterRoom() {
   // @ts-ignore
   const { user } = glagol
 // @ts-ignore
-  const { Strophe } = window.global
+  const { Strophe } = window
   const message = new Strophe.Builder('iq', {
     from: `${user.roomName}@prosolen.net/${user.userNode}`,
     id: 'userNode',
@@ -22,7 +22,7 @@ function validaterRoom() {
 
 function inviteRoom() {
   // @ts-ignore
-  const { Strophe } = window.global
+  const { Strophe } = window
   // @ts-ignore
   const { user } = glagol
   // @ts-ignore

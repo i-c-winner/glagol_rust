@@ -14,7 +14,7 @@ const getStreams = async () => {
 
 function Room() {
   // @ts-ignore
-  const { Strophe } = window.global
+  const { Strophe } = window
   const { data, error, isPending } = useAsync({ promiseFn: getStreams })
   useEffect(() => {
     // @ts-ignore

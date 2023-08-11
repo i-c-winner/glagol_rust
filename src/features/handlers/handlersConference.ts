@@ -7,7 +7,7 @@ function handlersConference() {
 
   function handlerPresence(stanza: any) {
     // @ts-ignore
-    const { Strophe } = window.global
+    const  Strophe  = window.Stophe
     // @ts-ignore
     const { user } = glagol
     const xAttributes = stanza.getElementsByTagName('x')
@@ -41,7 +41,7 @@ function handlersConference() {
 
   function handlerMessage(stanza: any) {
     // @ts-ignore
-    const { Strophe } = window.global
+    const { Strophe } = window
     const body = stanza.getElementsByTagName('body')[0]
     const bodyText = Strophe.getText(body)
     const jimble = stanza.getElementsByTagName('jimble')

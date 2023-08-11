@@ -27,7 +27,7 @@ class PeerConnection {
       // @ts-ignore
       const { user } = glagol
       // @ts-ignore
-      const { Strophe } = window.global
+      const { Strophe } = window
 
       if (event.candidate) {
         console.warn(event.candidate)

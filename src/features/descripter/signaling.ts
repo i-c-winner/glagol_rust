@@ -2,7 +2,7 @@ import {glagol} from "../../shared/glagol/glagol";
 
 function doSignaling (answer: string) {
   // @ts-ignore
-  const {Strophe}= window.global
+  const {Strophe}= window
   // @ts-ignore
   const {user}=glagol
   // @ts-ignore
