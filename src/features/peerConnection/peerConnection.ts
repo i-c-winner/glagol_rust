@@ -31,7 +31,6 @@ class PeerConnection {
       const { Strophe } = window
 
       if (event.candidate) {
-        console.warn(event.candidate)
         if (event.candidate) {
           const candidate64 = btoa(JSON.stringify({
             candidate: event.candidate

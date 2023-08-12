@@ -34,7 +34,6 @@ function handlersConference() {
       if (type === 'result') {
         inviteRoom()
       }
-      console.info(stanza, 'IQ')
       return true
     }
   }
@@ -75,7 +74,6 @@ function handlersConference() {
         descriptor.setCandidate(icecandidate)
       }
     }
-    console.info(stanza, 'message')
     return true
   }
 

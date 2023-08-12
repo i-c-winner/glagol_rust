@@ -13,7 +13,6 @@ function doSignaling (answer: string) {
   }).c('body').t(answer)
   // @ts-ignore
   glagol.connection.send(message)
-  console.log(message, 'DOSIGNALING')
 }
 
 export {doSignaling}
