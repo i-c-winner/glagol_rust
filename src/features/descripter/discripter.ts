@@ -13,6 +13,7 @@ const descriptor: Descriptor = {
   },
 
   setRemoteDescription: function (params) {
+    
     const pc = this.getPeerConnection()
     this.addTransceivers(params.audio, params.video)
    pc.setRemoteDescription(JSON.parse(atob(params.description))).then(() => {

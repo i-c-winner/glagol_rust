@@ -74,6 +74,14 @@ function handlersConference() {
         descriptor.setCandidate(icecandidate)
       }
     }
+    if (bodyText==="remove_track") {
+     const params: Params ={
+       audio: audio*(-1),
+       video: video*(-1),
+       description: jimbleText
+     }
+     descriptor.setRemoteDescription(params)
+    }
     return true
   }
 
