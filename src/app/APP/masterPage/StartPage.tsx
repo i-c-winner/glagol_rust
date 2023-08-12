@@ -8,7 +8,6 @@ import { getRandomText } from "../../../shared/index";
 import {glagol} from "../../../shared/";
 // @ts-ignore
 const { Strophe } = strophe
-debugger
 setRegister(strophe)
 const userNode = getRandomText(5)
 const password = getRandomText(8)

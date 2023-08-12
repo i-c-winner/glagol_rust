@@ -1,7 +1,7 @@
 import { useAsync } from "react-async";
 import { useEffect } from "react";
 import { BigScreen } from "../../widgets/BIgScreen/BigScreen";
-import './index.scss'
+
 import { streams } from "../../shared";
 import {glagol} from "../../shared";
 
