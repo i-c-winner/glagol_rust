@@ -2,9 +2,8 @@ import { inviteRoom, validaterRoom } from "./createrMessage";
 import { descriptor } from "../descripter/discripter";
 import {Params} from "../types";
 import {glagol} from "../../shared";
-
+let removeTrackFromList: any = null
 function handlersConference() {
-
   function handlerPresence(stanza: any) {
     // @ts-ignore
     const  Strophe  = window.Strophe
@@ -22,6 +21,19 @@ function handlersConference() {
         inviteRoom()
       }
     }
+    
+    try{
+      const item=xAttributes[0].getElementsByTagName('item')
+      const role =item[0].getAttribute('role')
+      if (role==='none') {
+        const jid=item[0].getAttribute('jid').split('/')[1]
+        removeTrackFromList(jid)
+      }
+    } catch (e) {
+      
+    }
+   
+    console.log(stanza, 'Presence')
     return true
   }
 
@@ -81,6 +93,7 @@ function handlersConference() {
        description: jimbleText
      }
      descriptor.setRemoteDescription(params)
+
     }
     return true
   }
@@ -93,5 +106,8 @@ function handlersConference() {
   connection.addHandler(handlerMessage, '', 'message')
 
 }
+function onListenerForRemoveTrack(remoteAddStrem:any) {
+  removeTrackFromList = remoteAddStrem
+}
 
-export { handlersConference }
+export { handlersConference, onListenerForRemoveTrack }

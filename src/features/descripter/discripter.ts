@@ -13,7 +13,7 @@ const descriptor: Descriptor = {
   },
 
   setRemoteDescription: function (params) {
-    
+
     const pc = this.getPeerConnection()
     this.addTransceivers(params.audio, params.video)
    pc.setRemoteDescription(JSON.parse(atob(params.description))).then(() => {
@@ -30,7 +30,7 @@ const descriptor: Descriptor = {
   },
   addTransceivers: function (audio, video) {
     this.currentTransceiver.audio = this.currentTransceiver.audio + audio
-    this.currentTransceiver.video = this.currentTransceiver.video = video
+    this.currentTransceiver.video = this.currentTransceiver.video + video
     // @ts-ignore
     const peerConnection = glagol.peerConnection.pc
     // @ts-ignore

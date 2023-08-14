@@ -1,12 +1,12 @@
 import { config } from "../../shared";
 import { doSignaling } from "../descripter/signaling";
 import { streams } from "../../shared";
-import {glagol} from "../../shared";
+import { glagol } from "../../shared";
 
 class PeerConnection {
   pc: RTCPeerConnection;
   private static instance: any;
-  private callback: any;
+  private addTrackToList: any;
 
   constructor() {
     if (!PeerConnection.instance) {
@@ -19,7 +19,7 @@ class PeerConnection {
         }
       ]
     })
-    this.callback = null
+    this.addTrackToList = null
     return PeerConnection.instance
   }
 
@@ -40,12 +40,14 @@ class PeerConnection {
       }
     }
     this.pc.ontrack = (event) => {
+      console.log(event)
       streams.setRemoteStream(event.streams[0])
-      this.callback()
+      this.addTrackToList()
     }
   }
-  on(callback: any) {
-    this.callback = callback
+
+  on(addTrackToList: any) {
+    this.addTrackToList = addTrackToList
   }
 }
 
