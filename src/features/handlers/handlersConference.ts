@@ -21,7 +21,6 @@ function handlersConference() {
         inviteRoom()
       }
     }
-    
     try{
       const item=xAttributes[0].getElementsByTagName('item')
       const role =item[0].getAttribute('role')

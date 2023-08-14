@@ -40,9 +40,12 @@ class PeerConnection {
       }
     }
     this.pc.ontrack = (event) => {
-      console.log(event)
+      console.log(glagol.peerConnection?.pc.getReceivers())
       streams.setRemoteStream(event.streams[0])
       this.addTrackToList()
+    }
+    this.pc.removeTrack=(event)=> {
+
     }
   }
 

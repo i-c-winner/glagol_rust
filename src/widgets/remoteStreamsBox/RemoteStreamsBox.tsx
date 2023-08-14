@@ -1,17 +1,22 @@
 import '../styles/index.scss'
 import { PeerConnection } from "../../features";
 import { SmallScreenBox } from "../smallScreenBox/SmallScreenBox";
-import { streams } from "../../shared";
+import { glagol, streams } from "../../shared";
 import { useState } from "react";
 import { onListenerForRemoveTrack } from "../../features/handlers/handlersConference";
 
 const peerConnection = new PeerConnection()
 
 function RemoteStreamsBox() {
-  const [ list, setList ] = useState<MediaStream[]>([])
+  const [ list, setList ] = useState<RTCRtpReceiver[]>([])
 
   function listenerAddTrack() {
-    setList(filteredStreams(streams.getRemoteStreams()))
+    if (glagol.peerConnection!==null) {
+      debugger
+      setList(glagol.peerConnection.pc.getRemoteStreams().slice(2))
+    }
+
+
 
     function filteredStreams(streams: any) {
       const honest = []
@@ -25,7 +30,10 @@ function RemoteStreamsBox() {
   peerConnection.on(listenerAddTrack)
 
   function cutListParticipiant(jid: string) {
-    console.log(list)
+    if (glagol.peerConnection!==null) {
+      setList(glagol.peerConnection.pc.getRemoteStreams())
+      console.log(glagol.peerConnection.pc.getRemoteStreams())
+    }
     console.log(jid)
   }
 

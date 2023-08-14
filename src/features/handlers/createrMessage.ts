@@ -38,7 +38,7 @@ function inviteRoom() {
   const message = new Strophe.Builder('message', {
     to: 'focus@prosolen.net/focus',
     type: 'chat',
-    xmlns: 'jabber:client'
+    xmlns: 'jabber:client',
   }).c('x', {
     xmlns: 'jabber:x:conference',
     jid: `${user.roomName}@conference.prosolen.net`

@@ -10,7 +10,7 @@ type   Streams ={
 }
 type Glagol ={
   connection: any,
-  peerConnection: PeerConnection|null,
+  peerConnection: any,
   user: {
     userNode: string,
     roomName: string,

@@ -38,6 +38,7 @@ function Room() {
     const { user, connection } = glagol
     const message = new Strophe.Builder('presence', {
       to: `${user.roomName}@conference.prosolen.net/${user.userNode}`,
+      id: `ID_${glagol.user.userNode}`
     }).c('x', {
       xmlns: 'http://jabber.org/protocol/muc'
     })

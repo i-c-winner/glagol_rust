@@ -2,9 +2,11 @@ import { SmallScreen } from "../smallscreen/SmallScreen";
 
 
 function SmallScreenBox(props:  any) {
+  console.log(props, 'SMALSCREE')
   return (
     <div>
-      {props.list.slice(1).map((stream: MediaStream, index: number)=>{
+      {props.list.map((stream: RTCRtpReceiver, index: number)=>{
+        console.log(stream)
         return <SmallScreen  src={stream} key={index} />
       })}
     </div>
