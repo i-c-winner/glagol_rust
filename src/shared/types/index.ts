@@ -1,4 +1,3 @@
-import { PeerConnection } from "../../features";
 
 type   Streams ={
   localStreams: MediaStream|null,

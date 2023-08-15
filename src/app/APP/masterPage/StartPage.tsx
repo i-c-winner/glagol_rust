@@ -3,7 +3,8 @@ import { useState } from "react";
 import * as strophe from "strophe.js"
 import { config, setRegister } from "../../../shared/index";
 import { useAsync } from "react-async";
-import { handlersConference, PeerConnection } from "../../../features/index";
+import {PeerConnection} from "../../../entities";
+import { handlersConference} from "../../../features/index";
 import { getRandomText } from "../../../shared/index";
 import {glagol} from "../../../shared/";
 // @ts-ignore

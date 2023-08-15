@@ -1,5 +1,5 @@
 import '../styles/index.scss'
-import { PeerConnection } from "../../features";
+import { PeerConnection } from "../../entities";
 import { SmallScreenBox } from "../smallScreenBox/SmallScreenBox";
 import { glagol, streams } from "../../shared";
 import { useState } from "react";
