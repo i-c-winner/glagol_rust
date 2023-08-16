@@ -2,7 +2,10 @@ import { inviteRoom, validaterRoom } from "./createrMessage";
 import { descriptor } from "../descripter/discripter";
 import {Params} from "../types";
 import {glagol} from "../../shared";
+import { PeerConnection } from "../../entities";
 let removeTrackFromList: any = null
+
+const peerConnection= new PeerConnection()
 function handlersConference() {
   function handlerPresence(stanza: any) {
     // @ts-ignore
@@ -31,8 +34,6 @@ function handlersConference() {
     } catch (e) {
       
     }
-   
-    console.log(stanza, 'Presence')
     return true
   }
 
@@ -66,14 +67,13 @@ function handlersConference() {
    }
 
     if (bodyText === 'add_track') {
-      // @ts-ignore
-      const peerConnection  = glagol.peerConnection.pc
+     console.log(stanza)
         const params: Params= {
           audio,
           video,
           description: jimbleText
         }
-        descriptor.setRemoteDescription(params)
+        peerConnection.setRemoteDescription(params)
     } else if (bodyText==='ice_candidate') {
       // @ts-ignore
       const peerConnection  = glagol.peerConnection.pc

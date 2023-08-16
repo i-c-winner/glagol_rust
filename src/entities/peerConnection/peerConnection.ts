@@ -10,6 +10,7 @@ class PeerConnection {
   private addTrackToList: any;
   private candidates: RTCIceCandidate[];
   private currentTransceivers: { audio: number; video: number };
+  private activeParticipiants: MediaStream[];
 
   constructor() {
     if (!PeerConnection.instance) {
@@ -23,11 +24,12 @@ class PeerConnection {
       ]
     })
     this.addTrackToList = null
-    this.candidates=[]
-    this.currentTransceivers={
+    this.candidates = []
+    this.currentTransceivers = {
       audio: 0,
       video: 0
     }
+    this.activeParticipiants=[]
     return PeerConnection.instance
   }
 
@@ -48,47 +50,49 @@ class PeerConnection {
       }
     }
     this.pc.ontrack = (event) => {
-      console.log(glagol.peerConnection?.pc.getReceivers())
       streams.setRemoteStream(event.streams[0])
       this.addTrackToList()
     }
-    this.pc.removeTrack=(event)=> {
+    this.pc.removeTrack = (event) => {
 
     }
   }
-removeTrack(sender: RTCRtpSender) {
+
+  removeTrack(sender: RTCRtpSender) {
     this.pc.removeTrack(sender)
-}
+  }
 
-  setRemoteDescription (params: Params) {
-  this.addTransceivers(params.audio, params.video)
-  this.pc.setRemoteDescription(JSON.parse(atob(params.description))).then(() => {
-  while (this.candidates.length > 0) {
-  const candidate = this.candidates.shift()
-  this.pc.addIceCandidate(candidate)
-}
-})
-this.createAnswer()
-}
-  addTransceivers(audio: number, video: number) {
-  this.currentTransceivers.audio = this.currentTransceivers.audio + audio
-  this.currentTransceivers.video = this.currentTransceivers.video + video
-  // @ts-ignore
-  const peerConnection = glagol.peerConnection.pc
-  // @ts-ignore
-  const connection = glagol.connection
-
-  do {
-  peerConnection.addTransceiver('audio', { direction: 'recvonly' })
-this.currentTransceivers.audio -= 1
-} while (this.currentTransceivers.audio > 0)
-  do {
-    peerConnection.addTransceiver('audio', {
-      direction: 'recvonly'
+  setRemoteDescription(params: Params) {
+    this.addTransceivers(params.audio, params.video)
+    this.pc.setRemoteDescription(JSON.parse(atob(params.description))).then(() => {
+      while (this.candidates.length > 0) {
+        const candidate = this.candidates.shift()
+        this.pc.addIceCandidate(candidate)
+      }
     })
-    this.currentTransceivers.video -= 1
-  } while (this.currentTransceivers.video > 0)
-}
+    this.createAnswer()
+  }
+
+  addTransceivers(audio: number, video: number) {
+    this.currentTransceivers.audio = this.currentTransceivers.audio + audio
+    this.currentTransceivers.video = this.currentTransceivers.video + video
+    // @ts-ignore
+    const peerConnection = glagol.peerConnection.pc
+    // @ts-ignore
+    const connection = glagol.connection
+
+    do {
+      peerConnection.addTransceiver('audio', { direction: 'recvonly' })
+      this.currentTransceivers.audio -= 1
+    } while (this.currentTransceivers.audio > 0)
+    do {
+      peerConnection.addTransceiver('audio', {
+        direction: 'recvonly'
+      })
+      this.currentTransceivers.video -= 1
+    } while (this.currentTransceivers.video > 0)
+  }
+
   createAnswer() {
     this.pc.createAnswer().then((answer: any) => {
       this.pc.setLocalDescription(answer)

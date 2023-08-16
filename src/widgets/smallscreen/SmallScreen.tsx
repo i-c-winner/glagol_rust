@@ -5,12 +5,9 @@ type Props = {
 }
 
 function SmallScreen(props: Props) {
-  console.log(props, 'SMALL')
-
   useEffect(() => {
     try {
     props.src.getTracks().forEach((track: MediaStreamTrack)=>{
-console.log(track)
         if (track.kind==="video") {
           refVideo.current.srcObject = props.src
         }

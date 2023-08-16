@@ -12,7 +12,6 @@ function RemoteStreamsBox() {
 
   function listenerAddTrack() {
     if (glagol.peerConnection!==null) {
-      debugger
       setList(glagol.peerConnection.pc.getRemoteStreams().slice(2))
     }
 
@@ -32,9 +31,7 @@ function RemoteStreamsBox() {
   function cutListParticipiant(jid: string) {
     if (glagol.peerConnection!==null) {
       setList(glagol.peerConnection.pc.getRemoteStreams())
-      console.log(glagol.peerConnection.pc.getRemoteStreams())
-    }
-    console.log(jid)
+      }
   }
 
   onListenerForRemoveTrack(cutListParticipiant)
